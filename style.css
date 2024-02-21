@@ -1,0 +1,15 @@
+.container {
+  background-color: beige;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.inner-form {
+  margin: auto;
+}
+
+.submit-btn {
+  background-color: yellow;
+  color: black;
+}

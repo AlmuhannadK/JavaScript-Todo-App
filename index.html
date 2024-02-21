@@ -9,12 +9,19 @@
   </head>
   <body>
     <section>
-      <form>
-        <label>Task: </label>
-          <input type="text" />
-          <button type="submit">Add</button>
-        </label>
-      </form>
+      <div class="container">
+        <form class="inner-form">
+          <label>Task: </label>
+          <input type="text" class="input-task" />
+          <button type="submit" class="submit-btn">Add</button>
+        </form>
+      </div>
+    </section>
+    <section>
+      <div class="todo-container">
+        <h1>To-Do List:</h1>
+        <ul id="todos"></ul>
+      </div>
     </section>
     <script src="index.js"></script>
   </body>
