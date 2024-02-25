@@ -75,9 +75,10 @@ todoListElement.addEventListener("click", (event) => {
 
   action === "check" && checkTodo(todoId);
   action === "edit" && editTodo(todoId);
-  //action === "delete" && deleteTodo(todoId);
+  action === "delete" && deleteTodo(todoId);
 });
 
+//check a todo item
 function checkTodo(todoId) {
   todoItemsList = todoItemsList.map((todo, index) => {
     return {
@@ -89,7 +90,15 @@ function checkTodo(todoId) {
   renderTodoList();
 }
 
+//edit a todo item
 function editTodo(todoId) {
   input.value = todoItemsList[todoId].value;
   editTodoId = todoId;
+}
+
+//delete a todo item
+function deleteTodo(todoId) {
+  todoItemsList = todoItemsList.filter((todo, index) => index !== todoId);
+  editTodoId = -1;
+  renderTodoList();
 }
