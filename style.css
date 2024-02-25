@@ -17,3 +17,13 @@ body {
   color: #fff;
   border-color: black;
 }
+
+.checked {
+  text-decoration: line-through;
+  color: grey;
+}
+/* will customize notif banner later */
+.notification {
+}
+.notification-enter {
+}
