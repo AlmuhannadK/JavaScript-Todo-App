@@ -6,27 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>My Todo App</title>
+    <script
+      src="https://kit.fontawesome.com/a1b6619471.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
-    <section>
+    <header>
       <div class="container">
-        <form class="inner-form">
-          <label>Todo Tasks: </label>
-          <input type="text" class="input-task" placeholder="enter a task..." />
-          <button type="submit" class="submit-btn">Add</button>
+        <div class="header">
+          <h1>ToDos App</h1>
+        </div>
+        <form id="inner-form">
+          <input
+            type="text"
+            name="newtodo"
+            id="newtodo"
+            placeholder="enter a task..."
+          />
+          <button type="submit" id="submit-btn">ADD</button>
         </form>
       </div>
-    </section>
+    </header>
+
     <section>
-      <div class="todo-container">
-        <h1>To-Do List:</h1>
-        <p id="peding-tasks">
-          You have <span class="todo-counter">0</span> tasks to complete.
-        </p>
-        <ul class="todo-list"></ul>
+      <div class="todos-list">
+        <!-- <div class="todo" id="0">
+          <i class="fa-regular fa-circle"></i>
+          <i class="fa-solid fa-circle-check"></i>
+          <p class="checked">Test task</p>
+          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+        </div> -->
       </div>
     </section>
+
     <script src="index.js"></script>
   </body>
 </html>

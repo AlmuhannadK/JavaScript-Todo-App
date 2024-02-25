@@ -12,8 +12,8 @@ body {
   margin: auto;
 }
 
-.submit-btn {
+#submit-btn {
   background-color: rgb(67, 179, 12);
   color: #fff;
-  border-color:black;
+  border-color: black;
 }
