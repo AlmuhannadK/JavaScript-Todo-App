@@ -1,7 +1,7 @@
 //let globalToDoList = [];
 const form = document.querySelector(".inner-form");
 const input = document.querySelector(".input-task");
-const ul = document.querySelector("#todos");
+const ul = document.querySelector(".todo-list");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
