@@ -2,15 +2,10 @@ let todoItemsList = [];
 const form = document.querySelector("#inner-form");
 const input = document.querySelector("#newtodo");
 const todoListElement = document.querySelector(".todos-list");
-//const ul = document.querySelector(".todo-list");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  // let inputValue = input.value;
-  // let li = document.createElement("li");
-  // li.textContent = inputValue;
-  // ul.appendChild(li);
-  // console.log(todoItems);
+
   saveTodo();
   renderTodoList();
   form.reset();
@@ -38,7 +33,7 @@ function saveTodo() {
 }
 
 function renderTodoList() {
-  //clear before render
+  //clear before render (otherwise duplicates)
   todoListElement.innerHTML = "";
   todoItemsList.forEach((todo, index) => {
     todoListElement.innerHTML += `
@@ -47,12 +42,39 @@ function renderTodoList() {
             todo.checked ? "fa-circle-check" : "fa-circle"
           }"
           style="color : ${todo.color}"
-          >
-          </i>
-          <p class="checked">${todo.value}</p>
-          <i class="fa-solid fa-pen-to-square"></i>
-          <i class="fa-solid fa-trash"></i>
+          data-action="check"
+          ></i>
+          <p class="checked" data-action="check">${todo.value}</p>
+          <i class="fa-solid fa-pen-to-square" data-action="edit"></i>
+          <i class="fa-solid fa-trash" data-action="delete"></i>
         </div>
     `;
   });
+}
+// click event listeners for all todos
+todoListElement.addEventListener("click", (event) => {
+  const target = event.target;
+  const parentElement = target.parentNode;
+  if (parentElement.className !== "todo") return;
+  // item id
+  const todo = parentElement;
+  const todoId = Number(todo.id);
+  // target action
+  const action = target.dataset.action;
+
+  action === "check" && checkTodo(todoId);
+  //action === "edit" && editTodo(todoId);
+  //action === "delete" && deleteTodo(todoId);
+});
+
+function checkTodo(todoId) {
+  let newItemsList = todoItemsList.map((todo, index) => {
+    return {
+      value: todo.value,
+      color: todo.color,
+      checked: index === todoId ? !todo.checked : todo.checked,
+    };
+  });
+  todoItemsList = newItemsList;
+  renderTodoList();
 }
