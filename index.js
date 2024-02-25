@@ -2,6 +2,7 @@ let todoItemsList = [];
 const form = document.querySelector("#inner-form");
 const input = document.querySelector("#newtodo");
 const todoListElement = document.querySelector(".todos-list");
+let editTodoId = -1;
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -21,6 +22,15 @@ function saveTodo() {
     alert("input is empty");
   } else if (isDuplicate) {
     alert("input already exists");
+  } else if (editTodoId >= 0) {
+    todoItemsList = todoItemsList.map((todo, index) => {
+      return {
+        value: index === editTodoId ? todoValue : todo.value,
+        color: todo.color,
+        checked: todo.checked,
+      };
+    });
+    editTodoId = -1;
   } else {
     const todoItem = {
       value: todoValue,
@@ -51,6 +61,7 @@ function renderTodoList() {
     `;
   });
 }
+
 // click event listeners for all todos
 todoListElement.addEventListener("click", (event) => {
   const target = event.target;
@@ -63,18 +74,22 @@ todoListElement.addEventListener("click", (event) => {
   const action = target.dataset.action;
 
   action === "check" && checkTodo(todoId);
-  //action === "edit" && editTodo(todoId);
+  action === "edit" && editTodo(todoId);
   //action === "delete" && deleteTodo(todoId);
 });
 
 function checkTodo(todoId) {
-  let newItemsList = todoItemsList.map((todo, index) => {
+  todoItemsList = todoItemsList.map((todo, index) => {
     return {
       value: todo.value,
       color: todo.color,
       checked: index === todoId ? !todo.checked : todo.checked,
     };
   });
-  todoItemsList = newItemsList;
   renderTodoList();
+}
+
+function editTodo(todoId) {
+  input.value = todoItemsList[todoId].value;
+  editTodoId = todoId;
 }
