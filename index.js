@@ -3,7 +3,7 @@ let editTodoId = -1;
 const form = document.querySelector("#inner-form");
 const input = document.querySelector("#newtodo");
 const todoListElement = document.querySelector(".todos-list");
-const notification = document.querySelector(".notification");
+const notification = document.querySelector("#notification");
 const searchInput = document.querySelector("#searchtodo");
 
 //first render for local storage
@@ -51,7 +51,6 @@ function saveTodo() {
 function renderTodoList(todoRenderList) {
   if (todoItemsList.length === 0) {
     todoListElement.innerHTML = `<p>No tasks available!</p>`;
-    return;
   }
   //clear before render (otherwise duplicates)
   todoListElement.innerHTML = "";
@@ -89,14 +88,20 @@ function renderTodoList(todoRenderList) {
   });
 
   let counter = 0;
+
   todoItemsList.forEach((todo) => {
     if (todo.checked) {
       counter++;
     }
   });
-  document.getElementById(
-    "todo-counter"
-  ).innerText = `You have completed ${counter} tasks out of ${todoItemsList.length}.`;
+
+  const taskCounter = document.getElementById("todo-counter");
+
+  if (todoItemsList.length !== 0) {
+    taskCounter.innerText = `You have completed ${counter} tasks out of ${todoItemsList.length}.`;
+  } else {
+    taskCounter.textContent = "";
+  }
 }
 
 //check a todo item
@@ -127,18 +132,19 @@ function deleteTodo(todoId) {
   localStorage.setItem("todoItems", JSON.stringify(todoItemsList));
 }
 
-//show notification (styling later)
+//show notification
 function showNotification(msg) {
   notification.textContent = msg;
 
-  notification.classList.add("notification-enter");
+  notification.classList.add("notification");
+
   setTimeout(() => {
-    notification.classList.remove("notification-enter");
+    notification.classList.remove("notification");
+    notification.textContent = "";
   }, 3000);
 }
 
 // search feature
-
 searchInput.addEventListener("input", () => {
   const searchResult = todoItemsList.filter((todo) => {
     if (todo.value.includes(searchInput.value)) {
