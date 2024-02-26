@@ -1,21 +1,52 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 .container {
-  background-color: rgb(97, 177, 247);
+  background-color: rgb(64 83 101);
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+  padding: 30px;
 }
-
+.header {
+  font-size: 30px;
+  margin: auto;
+}
 .inner-form {
   margin: auto;
+}
+.inner-form input {
 }
 
 #submit-btn {
   background-color: rgb(67, 179, 12);
   color: #fff;
   border-color: black;
+}
+
+.todos-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo > div:nth-child(1) {
+  display: flex;
+  align-items: center;
+}
+.todo > div:nth-child(1) > p {
+  margin-left: 10px;
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
 }
 
 .checked {
@@ -26,4 +57,7 @@ body {
 .notification {
 }
 .notification-enter {
+}
+section > p {
+  text-align: center;
 }

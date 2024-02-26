@@ -4,16 +4,16 @@ const form = document.querySelector("#inner-form");
 const input = document.querySelector("#newtodo");
 const todoListElement = document.querySelector(".todos-list");
 const notification = document.querySelector(".notification");
+const searchInput = document.querySelector("#searchtodo");
 
 //first render for local storage
-renderTodoList();
+renderTodoList(todoItemsList);
 
 //form submission
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-
   saveTodo();
-  renderTodoList();
+  renderTodoList(todoItemsList);
   localStorage.setItem("todoItems", JSON.stringify(todoItemsList));
   form.reset();
 });
@@ -48,7 +48,7 @@ function saveTodo() {
   }
 }
 
-function renderTodoList() {
+function renderTodoList(todoRenderList) {
   if (todoItemsList.length === 0) {
     todoListElement.innerHTML = `<p>No tasks available!</p>`;
     return;
@@ -57,40 +57,47 @@ function renderTodoList() {
   todoListElement.innerHTML = "";
 
   //reder todo items
-  todoItemsList.forEach((todo, index) => {
-    todoListElement.innerHTML += `
-    <div class="todo" id=${index}>
-          <i class="fa-regular ${
-            todo.checked ? "fa-circle-check" : "fa-circle"
-          }"
-          style="color : ${todo.color}"
-          data-action="check"
-          ></i>
-          <p class="${todo.checked ? "checked" : ""}" data-action="check">${
+  todoRenderList.forEach((todo, index) => {
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    todoDiv.innerHTML = `
+    <div id=${index}>
+    <i class="fa-regular ${todo.checked ? "fa-circle-check" : "fa-circle"}"
+    style="color : ${todo.color}"
+    data-action="check"
+    ></i>
+    <p class="${todo.checked ? "checked" : ""}" data-action="check">${
       todo.value
     }</p>
-          <i class="fa-solid fa-pen-to-square" data-action="edit"></i>
-          <i class="fa-solid fa-trash" data-action="delete"></i>
-        </div>
-    `;
+    </div>
+    <div>
+    <i class="fa-solid fa-pen-to-square" data-action="edit"></i>
+    <i class="fa-solid fa-trash" data-action="delete"></i>
+    </div>`;
+
+    todoDiv.addEventListener("click", (event) => {
+      const target = event.target;
+      // target action
+      const action = target.dataset.action;
+
+      action === "check" && checkTodo(index);
+      action === "edit" && editTodo(index);
+      action === "delete" && deleteTodo(index);
+    });
+
+    todoListElement.appendChild(todoDiv);
   });
+
+  let counter = 0;
+  todoItemsList.forEach((todo) => {
+    if (todo.checked) {
+      counter++;
+    }
+  });
+  document.getElementById(
+    "todo-counter"
+  ).innerText = `You have completed ${counter} tasks out of ${todoItemsList.length}.`;
 }
-
-// click event listeners for all todos
-todoListElement.addEventListener("click", (event) => {
-  const target = event.target;
-  const parentElement = target.parentNode;
-  if (parentElement.className !== "todo") return;
-  // item id
-  const todo = parentElement;
-  const todoId = Number(todo.id);
-  // target action
-  const action = target.dataset.action;
-
-  action === "check" && checkTodo(todoId);
-  action === "edit" && editTodo(todoId);
-  action === "delete" && deleteTodo(todoId);
-});
 
 //check a todo item
 function checkTodo(todoId) {
@@ -101,7 +108,7 @@ function checkTodo(todoId) {
       checked: index === todoId ? !todo.checked : todo.checked,
     };
   });
-  renderTodoList();
+  renderTodoList(todoItemsList);
   localStorage.setItem("todoItems", JSON.stringify(todoItemsList));
 }
 
@@ -113,9 +120,10 @@ function editTodo(todoId) {
 
 //delete a todo item
 function deleteTodo(todoId) {
+  console.log(todoId);
   todoItemsList = todoItemsList.filter((todo, index) => index !== todoId);
   editTodoId = -1;
-  renderTodoList();
+  renderTodoList(todoItemsList);
   localStorage.setItem("todoItems", JSON.stringify(todoItemsList));
 }
 
@@ -128,3 +136,14 @@ function showNotification(msg) {
     notification.classList.remove("notification-enter");
   }, 3000);
 }
+
+// search feature
+
+searchInput.addEventListener("input", () => {
+  const searchResult = todoItemsList.filter((todo) => {
+    if (todo.value.includes(searchInput.value)) {
+      return todo;
+    }
+  });
+  renderTodoList(searchResult);
+});
