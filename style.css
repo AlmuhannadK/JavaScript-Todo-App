@@ -2,7 +2,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: aliceblue;
 }
 .container {
   background-color: rgb(64 83 101);
@@ -12,20 +11,38 @@ body {
   align-items: center;
   padding: 30px;
 }
-.header {
-  font-size: 30px;
-  margin: auto;
+.header h1 {
+  font-size: 70px;
+  font-weight: 600;
+  color: #fdfdfe;
+  text-shadow: 0px 0px 5px #89c5da, 0px 0px 10px #89c5da, 0px 0px 10px #89c5da,
+    0px 0px 20px #89c5da;
 }
-.inner-form {
-  margin: auto;
-}
-.inner-form input {
+#inner-form {
+  display: flex;
+  align-items: center;
 }
 
 #submit-btn {
-  background-color: rgb(67, 179, 12);
+  background-color: #398f44;
   color: #fff;
-  border-color: black;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+#searchtodo {
+  margin-top: 20px;
+  width: 10%;
+}
+
+#todo-counter {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(95, 136, 174);
 }
 
 .todos-list {
@@ -52,6 +69,22 @@ body {
 
 section > p {
   text-align: center;
+}
+
+.container input {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+}
+
+input:hover {
+  border-color: #398f44;
+}
+input::placeholder {
+  color: #aaa8a8;
 }
 
 .checked {

@@ -98,7 +98,7 @@ function renderTodoList(todoRenderList) {
   const taskCounter = document.getElementById("todo-counter");
 
   if (todoItemsList.length !== 0) {
-    taskCounter.innerText = `You have completed ${counter} tasks out of ${todoItemsList.length}.`;
+    taskCounter.innerText = `You have completed ${counter} tasks out of ${todoItemsList.length}`;
   } else {
     taskCounter.textContent = "";
   }
