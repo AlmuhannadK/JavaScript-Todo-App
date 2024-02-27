@@ -5,6 +5,7 @@ const input = document.querySelector("#newtodo");
 const todoListElement = document.querySelector(".todos-list");
 const notification = document.querySelector("#notification");
 const searchInput = document.querySelector("#searchtodo");
+const taskCounter = document.getElementById("todo-counter");
 
 //first render for local storage
 renderTodoList(todoItemsList);
@@ -44,7 +45,6 @@ function saveTodo() {
       color: "#" + Math.floor(Math.random() * 16777215).toString(16),
     };
     todoItemsList.push(todoItem);
-    console.log(todoItemsList);
   }
 }
 
@@ -88,14 +88,11 @@ function renderTodoList(todoRenderList) {
   });
 
   let counter = 0;
-
   todoItemsList.forEach((todo) => {
     if (todo.checked) {
       counter++;
     }
   });
-
-  const taskCounter = document.getElementById("todo-counter");
 
   if (todoItemsList.length !== 0) {
     taskCounter.innerText = `You have completed ${counter} tasks out of ${todoItemsList.length}`;
@@ -125,7 +122,6 @@ function editTodo(todoId) {
 
 //delete a todo item
 function deleteTodo(todoId) {
-  console.log(todoId);
   todoItemsList = todoItemsList.filter((todo, index) => index !== todoId);
   editTodoId = -1;
   renderTodoList(todoItemsList);
@@ -147,7 +143,7 @@ function showNotification(msg) {
 // search feature
 searchInput.addEventListener("input", () => {
   const searchResult = todoItemsList.filter((todo) => {
-    if (todo.value.includes(searchInput.value)) {
+    if (todo.value.toLowerCase().includes(searchInput.value.toLowerCase())) {
       return todo;
     }
   });

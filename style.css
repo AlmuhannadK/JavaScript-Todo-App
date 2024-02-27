@@ -36,7 +36,8 @@ body {
 
 #searchtodo {
   margin-top: 20px;
-  width: 10%;
+  width: 30%;
+  opacity: 0.8;
 }
 
 #todo-counter {
